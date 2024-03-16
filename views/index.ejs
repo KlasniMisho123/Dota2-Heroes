@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dota2 Heroes</title>
+    <link href="./main.css" rel="stylesheet">
+</head>
+<body>
+  <div class="flex-box">
+    <!-- <form action="/" method="POST" class="logo-section" onsubmit="reloadPage()">
+      <img class="dotalogo" src="../assets/Dota-2-Logo.png" alt="Dota 2 Logo">
+    </form> -->
+    <div class="logo-section">
+      <img class="dotalogo" src="../assets/Dota-2-Logo.png" alt="Dota 2 Logo">
+    </div>
+
+    <div class="content-section">
+      <form class="input-section input-flex" method="POST" >
+        <input name="heroName" class="hero-input" placeholder="Enter Hero">
+        <button type="submit"> Submit </button>
+      </form>
+      <% if(locals.selectedHero) { %>
+      <div class="img-section">
+        <img class="hero-icon" src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/<%=selectedHero.toLowerCase() %>.png" alt="Hero icon"> 
+      </div>
+      <div class="hero-stats">
+        <h1 class="stat-title"> <%= selectedHero.replace("_", " ").toUpperCase() %>
+          %> Stats: </h1>
+      </div>
+      <%} %>
+      <% if(!locals.selectedHero) { %>
+        <div class="img-section">
+          <img class="hero-icon" src="../assets/default-hero.webp" alt="Hero icon"> 
+        </div>
+        <div class="hero-stats">
+          <h1 class="stat-title"> Hero Stats: </h1>
+        </div>
+        <%} %>
+
+    </div>
+  </div>
+  <!-- <script src="js/functions.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+</body>
+</html>
