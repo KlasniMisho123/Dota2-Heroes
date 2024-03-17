@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dota2 Heroes</title>
+    <title>Dota2 Hero Stats </title>
     <link href="./main.css" rel="stylesheet">
 </head>
 <body>
@@ -28,6 +28,21 @@
       <div class="hero-stats">
         <h1 class="stat-title"> <%= selectedHero.replace("_", " ").toUpperCase() %>
           %> Stats: </h1>
+          <% if(locals.statOutput) { %>
+            <ul>
+              <% locals.statOutput.forEach(stat => { %>
+                  <strong>Primary Stat:</strong> <%= stat.primaryStat %><br>
+                  <strong>Attack Type:</strong> <%= stat.attackType %><br>
+                  <strong>Roles:</strong> <%= stat.roles.join(', ') %><br>
+                  <strong>Base Health:</strong> <%= stat.baseHealth %><br>
+                  <strong>Base Mana:</strong> <%= stat.baseMana %><br>
+                  <strong>Base Strength:</strong> <%= stat.baseStr %><br>
+                  <strong>Base Agility:</strong> <%= stat.baseAgi %><br>
+                  <strong>Base Intelligence:</strong> <%= stat.baseInt %><br>
+                  <strong>Move Speed:</strong> <%= stat.moveSpeed %><br>
+              <% }); %>
+            </ul>
+          <% } %>
       </div>
       <%} %>
       <% if(!locals.selectedHero) { %>
@@ -35,13 +50,15 @@
           <img class="hero-icon" src="../assets/default-hero.webp" alt="Hero icon"> 
         </div>
         <div class="hero-stats">
-          <h1 class="stat-title"> Hero Stats: </h1>
+          <h1 class="stat-title"> <%=error %> </h1>
         </div>
         <%} %>
-
     </div>
+    <form action="/" method="GET"> 
+      <a href="/heroes">
+        <h3> See Dota2 Heroes </h3>
+      </a>
+    </form >
   </div>
-  <!-- <script src="js/functions.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 </body>
 </html>

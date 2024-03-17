@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dota2 Heroes</title>
+    <link href="./heroes.css" rel="stylesheet">
+</head>
+<body>
+    <h1 class="title"> Dota2 Heroes: </h1>
+    <div class="content-div">
+      <ol class="heroes-list">
+          <% heroList.forEach(hero => { %>
+            <li><%= hero %></li>
+          <% }); %>
+      </ol>
+    </div>
+
+</body>
+</html>

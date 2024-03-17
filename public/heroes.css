@@ -1,0 +1,23 @@
+body {
+    background-image: url("../assets/heroesbackground.png");
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+}
+
+.title{
+    text-align: center;
+}
+
+.heroes-list {
+    width: 50%;
+    height: 86vh;
+    overflow: auto;
+    border: 2px solid black;
+    border-style: dashed;
+}
+
+.content-div {
+    display: flex;
+    justify-content: center;
+}

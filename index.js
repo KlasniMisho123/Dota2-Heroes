@@ -5,6 +5,9 @@ import axios from "axios";
 const app = express();
 const port = 3000;
 
+const response = await axios.get(`https://api.opendota.com/api/heroStats`);
+const heroStats = response.data;
+
 app.use(express.static("public"))
 app.use(bodyParser.urlencoded({extended: true }));
 
@@ -14,30 +17,59 @@ app.get("/", async (req, res) => {
 
 app.post("/", async (req, res) => { 
   try {
-    let heroName = req.body.heroName
+    let heroName = req.body.heroName;
+
+    heroName = heroName.replace(" ", "_");
+
+    const selectedHeroStats = heroStats.find(hero => hero.localized_name.toLowerCase() === heroName.toLowerCase().replace("_", " "));
+    
+    console.log("Name: " + heroName);
+    console.log(selectedHeroStats);
 
 
-    const response = await axios.get(`https://api.opendota.com/api/heroStats`);
+    let statOutput = [];
 
-    const heroStats = response.data
-  
-    heroStats.forEach(hero => {
-      
+    statOutput.push({
+      primaryStat: selectedHeroStats["primary_attr"], 
+      attackType: selectedHeroStats["attack_type"],
+      roles: selectedHeroStats["roles"], 
+      baseHealth: selectedHeroStats["base_health"],
+      baseMana: selectedHeroStats["base_mana"],
+      baseStr: selectedHeroStats["base_str"],
+      baseAgi: selectedHeroStats["base_agi"],
+      baseInt: selectedHeroStats["base_int"],
+      moveSpeed: selectedHeroStats["move_speed"],
     });
-
-    // "localized_name": "Phantom Assassin",
-    // chawerili saxelis mixedvit gmiris povna da mxolod misi statebis naxva
-
-    heroName = heroName.replace(" ", "_")
-
     
-    
-    console.log(heroName);
-    res.render("index.ejs", {selectedHero : heroName});
-  } catch {
-    console.log("errors");
+    console.log(statOutput);
+
+    res.render("index.ejs", {
+      selectedHero: heroName,
+      statOutput: statOutput
+    });
+  } catch (error) {
+    console.log("errors", error);
+    const errors = "Incorrect Hero Name!";
+    res.render("index.ejs", {
+      error: errors
+    });
   }
 });
+
+
+app.get("/heroes", async (req, res) => {
+
+  
+  let heroList = [];
+
+  heroStats.forEach(hero => {
+    heroList.push(hero.localized_name)
+  });
+
+  res.render("heroes.ejs", ({heroList : heroList}))
+})
+
+
 
 
 app.listen(port, () => {

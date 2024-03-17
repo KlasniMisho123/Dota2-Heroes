@@ -1,8 +1,14 @@
 body {
-    background-image: url("../assets/background.png");
+    background-image: url("../assets/mainbackground.png");
     background-size: cover; 
     background-position: center; 
     background-repeat: no-repeat; 
+}
+
+h3:hover {
+    color: #5356FF;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 .flex-box {
@@ -63,4 +69,8 @@ body {
 .input-flex {
     display: flex;
     gap: 10px;
+}
+
+ul * {
+    font-size: 18px;
 }
