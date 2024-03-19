@@ -1,5 +1,4 @@
-    export const heroQoutes = { 
-
+export const heroQoutes = { 
 
     "heroes": [
 			{

@@ -8,8 +8,14 @@ const port = 3000;
 
 const response = await axios.get(`https://api.opendota.com/api/heroStats`);
 const heroStats = response.data;
-let randomNumber = Math.floor(Math.random() * 5)
- 
+
+function selectedHeroQoute (selectedHero) {
+	let randomNumber = Math.floor(Math.random() * 5)
+	let randomQoute = heroQoutes.heroes.find(hero => hero.name.toLocaleLowerCase() === selectedHero.toLocaleLowerCase())["quotes"][randomNumber]
+	console.log(randomQoute)
+  return randomQoute
+}
+
 
 app.use(express.static("public"))
 app.use(bodyParser.urlencoded({extended: true }));
@@ -21,8 +27,6 @@ app.get("/", async (req, res) => {
 app.post("/", async (req, res) => { 
   try {
 
-     
-
     let heroName = req.body.heroName;
 
     heroName = heroName.replace(" ", "_");
@@ -30,10 +34,11 @@ app.post("/", async (req, res) => {
     const selectedHeroStats = heroStats.find(hero => hero.localized_name.toLowerCase() === heroName.toLowerCase().replace("_", " "));
     
     console.log("Name: " + heroName);
-    // heroQoutes = heroQoutes.heroes.find(hero => hero.name === heroName)
-    // console.log(heroQoutes["quotes"][randomNumber]) 
+    console.log(selectedHeroStats);
 
     let statOutput = [];
+
+    selectedHeroQoute(heroName.replace("_", " "))
 
     statOutput.push({
       primaryStat: selectedHeroStats["primary_attr"], 
@@ -49,7 +54,8 @@ app.post("/", async (req, res) => {
     
     res.render("index.ejs", {
       selectedHero: heroName,
-      statOutput: statOutput
+      statOutput: statOutput,
+      heroQoute : selectedHeroQoute(heroName.replace("_", " "))
     });
   } catch (error) {
     const errors = "Incorrect Hero Name!";
